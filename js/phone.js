@@ -15,7 +15,7 @@ const displayPhones = phones => {
   if(phones.length > 12){
     showAllContainer.classList.remove("hidden");
   } else{
-    showAllContainer.classList.add("hidden")
+    showAllContainer.classList.add("hidden");
   }
 
   phones = phones.slice(0, 12);
@@ -51,15 +51,31 @@ const displayPhones = phones => {
         `;
     // 4. append child
     phoneContainer.appendChild(phoneCard);
-  })
+  });
+  // hide loading spinner
+  toggleLoadingSpinner(false);
 }
 
 // 
 document.querySelector("#btn-search").addEventListener("click", () => {
+  // show loading spinner
+  toggleLoadingSpinner(true);
+
+  // get the search value
   const searchField = document.querySelector("#search-field");
   const searchValue = searchField.value;
   loadPhone(searchValue);
 });
 
+const toggleLoadingSpinner = (isLoading) => {
+  const loadingSpinner = document.querySelector("#loading-spinner");
+  if(isLoading){
+    loadingSpinner.classList.remove("hidden");
+  } else{
+    loadingSpinner.classList.add("hidden");
+  }
+}
+
+toggleLoadingSpinner(true);
 loadPhone("iphone");
 
