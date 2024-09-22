@@ -1,24 +1,30 @@
-const loadPhone = async (searchText) => {
-  const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
+const loadPhone = async (searchText, isShowAll) => {
+  // const defaultText = searchText ? searchText : "iphone";
+  const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText ? searchText : "iphone"}`);
   const data = await res.json();
   const phones = data.data;
-  displayPhones(phones);
+  displayPhones(phones, isShowAll);
 }
 
-const displayPhones = phones => {
+const displayPhones = (phones, isShowAll) => {
   // 1. find the phones card container
   const phoneContainer = document.querySelector("#phone-container");
   phoneContainer.textContent = "";
 
   // display show all button if there are more than 12 phones
   const showAllContainer = document.querySelector("#show-all-container");
-  if(phones.length > 12){
+  if (phones.length > 12 && !isShowAll) {
     showAllContainer.classList.remove("hidden");
-  } else{
+  } else {
     showAllContainer.classList.add("hidden");
   }
 
-  phones = phones.slice(0, 12);
+  console.log('is show all', isShowAll);
+
+  // display only first 12 phones if not show all
+  if (!isShowAll) {
+    phones = phones.slice(0, 12);
+  }
 
   phones.forEach(phone => {
     // console.log(phone);
@@ -56,26 +62,33 @@ const displayPhones = phones => {
   toggleLoadingSpinner(false);
 }
 
-// 
-document.querySelector("#btn-search").addEventListener("click", () => {
+// get the search value
+function handleSearch(isShowAll) {
   // show loading spinner
   toggleLoadingSpinner(true);
 
   // get the search value
   const searchField = document.querySelector("#search-field");
   const searchValue = searchField.value;
-  loadPhone(searchValue);
-});
+  loadPhone(searchValue, isShowAll);
+}
 
+// show all 
+document.querySelector("#show-all-btn").addEventListener("click", () => {
+  handleSearch(true);
+})
+
+// loadingSpinner 
 const toggleLoadingSpinner = (isLoading) => {
   const loadingSpinner = document.querySelector("#loading-spinner");
-  if(isLoading){
+  if (isLoading) {
     loadingSpinner.classList.remove("hidden");
-  } else{
+  } else {
     loadingSpinner.classList.add("hidden");
   }
 }
 
-toggleLoadingSpinner(true);
 loadPhone("iphone");
+
+
 
