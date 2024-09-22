@@ -11,12 +11,34 @@
       type="text/css"
     />
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- poppins google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .font-poppins {
+        font-family: "Poppins", sans-serif;
+      }
+    </style>
   </head>
-  <body>
-    <header>
-        <h1 class="text-4xl">Hunting Phone</h1>
+  <body class="font-poppins container mx-auto">
+    <header class="px-10 lg:px-24 lg:py-12">
+      <nav class="flex justify-between items-center">
+        <h2 class="text-2xl font-medium leading-7 text-[##403F3F]">Hot Gadgets</h2>
+        <button class="btn px-8 bg-[#0D6EFD] hover:bg-[#0D6EFD] font-medium rounded-lg text-white">Sign Up</button>
+      </nav>
     </header>
-    <main></main>
+    <main class="px-10 lg:px-24">
+      <section>
+        <div
+          id="phone-container"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        ></div>
+      </section>
+    </main>
     <footer></footer>
 
     <!-- scripts -->
