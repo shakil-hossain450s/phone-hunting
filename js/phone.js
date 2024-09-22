@@ -13,23 +13,27 @@ const displayPhones = phones => {
         const { brand, image, phone_name, slug } = phone;
         // 2. create a div
         const phoneCard = document.createElement("div");
-        phoneCard.classList = `card bg-gray-100 w-96 shadow-xl`;
+        phoneCard.classList = `card p-6 text-center border border-[#CFCFCF] rounded-lg`;
         // 3. set inner HTML
         phoneCard.innerHTML = `
-            <figure>
-              <img
+            <figure class="bg-[#0D6EFD0D] rounded-lg">
+              <img class="scale-75"
                 src=${image}
                 alt="phone"
               />
             </figure>
-            <div class="card-body">
-              <h2 class="card-title">${phone_name}</h2>
-              <p>
+            <div class="card-body p-0 pt-6">
+              <h2 class="card-title justify-center text-[#403F3F] text-2xl font-bold">${phone_name}</h2>
+              <p class="text-[#706F6F] font-light">
                 There are many variations of passages of available, but the majority have suffered
               </p>
-              <h4>$999</h4>
-              <div class="card-actions justify-end">
-                <button class="btn btn-primary">Buy Now</button>
+              <h4 class="text-[#403F3F] font-bold text-2xl">$999</h4>
+              <div class="card-actions justify-center mt-6">
+                <button
+              class="btn px-6 py-1 bg-[#0D6EFD] hover:bg-[#0D6EFD] font-medium rounded-lg text-white"
+            >
+              Show Details
+            </button>
               </div>
             </div>
         `;
