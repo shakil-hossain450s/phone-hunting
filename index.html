@@ -78,24 +78,27 @@
           >
             <div class="flex items-center gap-2 px-5 w-full">
               <img class="w-6 h-6" src="./assets/search-icon.png" alt="" />
-              <input
+              <input id="search-field"
                 class="bg-transparent w-full border-none outline-none"
                 type="text"
                 placeholder="Search your phone"
               />
             </div>
-            <button
+            <button id="btn-search"
               class="btn translate-x-1 px-8 bg-[#0D6EFD] hover:bg-[#0D6EFD] font-medium rounded-lg text-white"
             >
               Search
             </button>
           </div>
         </div>
+
+        <!-- phone-container start here -->
         <div
           id="phone-container"
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         ></div>
-        <div class="flex justify-center mt-10">
+        <!-- show all btn -->
+        <div id="show-all-container" class="flex justify-center mt-10 hidden">
           <button
             class="btn px-8 bg-[#0D6EFD] hover:bg-[#0D6EFD] font-medium rounded-lg text-white"
           >
