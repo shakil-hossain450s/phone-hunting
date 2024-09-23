@@ -19,7 +19,7 @@ const displayPhones = (phones, isShowAll) => {
     showAllContainer.classList.add("hidden");
   }
 
-  console.log('is show all', isShowAll);
+  // console.log('is show all', isShowAll);
 
   // display only first 12 phones if not show all
   if (!isShowAll) {
@@ -47,11 +47,12 @@ const displayPhones = (phones, isShowAll) => {
               </p>
               <h4 class="text-[#403F3F] font-bold text-2xl">$999</h4>
               <div class="card-actions justify-center mt-6">
-                <button
-              class="btn px-6 py-1 bg-[#0D6EFD] hover:bg-[#0D6EFD] font-medium rounded-lg text-white"
-            >
+              <button
+                onclick="handleShowDetail('${slug}')"
+                class="btn px-6 py-1 bg-[#0D6EFD] hover:bg-[#0D6EFD] font-medium rounded-lg text-white"
+              >
               Show Details
-            </button>
+              </button>
               </div>
             </div>
         `;
@@ -60,6 +61,55 @@ const displayPhones = (phones, isShowAll) => {
   });
   // hide loading spinner
   toggleLoadingSpinner(false);
+}
+
+// handle show details
+const handleShowDetail = async (id) => {
+  // load single phone data
+  const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
+  const data = await res.json();
+  const phone = data.data;
+
+  showPhoneDetails(phone);
+}
+
+// show phone details
+const showPhoneDetails = phone => {
+  console.log(phone);
+  const { image, name, slug, releaseDate = {}, brand, mainFeatures: { storage, memory, chipSet, displaySize }, others: { GPS } = {} } = phone;
+  show_details_modal.showModal();
+  const dialogContainer = document.querySelector("#show_details_modal");
+
+  const modalDiv = document.createElement("div");
+  modalDiv.classList.add("modal-box", "text-[#403F3F]");
+  modalDiv.innerHTML = `
+    <div class="mb-8 flex justify-center items-center bg-[#0D6EFD0D] py-10 rounded-lg">
+      <img class="scale-90" src="${image}">
+    </div>
+    <h3 class="text-3xl font-bold mb-3">${name}</h3>
+    <p class="text-base font-normal mb-5">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+    <div class="space-y-2">
+      <p><span class="font-bold mr-2">Storage: </span>${storage}</p>
+      <p><span class="font-bold mr-2">Display Size: </span>${displaySize}</p>
+      <p><span class="font-bold mr-2">Chipset: </span>${chipSet}</p>
+      <p><span class="font-bold mr-2">Memory: </span>${memory}</p>
+      <p><span class="font-bold mr-2">Slug: </span>${slug}</p>
+      <p><span class="font-bold mr-2">Release Date: </span>${releaseDate !== "" ? releaseDate : "no release date found" }</p>
+      <p><span class="font-bold mr-2">Brand: </span>${brand}</p>
+      <p><span class="font-bold mr-2">GPS: </span>${GPS ? GPS : "no GPS found"}</p>
+    </div>
+    <div class="modal-action">
+      <form method="dialog">
+          <button
+            class="btn px-8 bg-[#DC3545] hover:bg-[#DC3545] font-medium rounded-lg text-white"
+          >
+            Close
+          </button>
+        </form>
+    </div>
+  `;
+  dialogContainer.appendChild(modalDiv);
+
 }
 
 // get the search value
